@@ -9,8 +9,10 @@
     "lint": "eslint --ignore-pattern webpack* --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@xstate/react": "^2.0.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "xstate": "^4.30.6"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",
@@ -20,6 +22,7 @@
     "@types/node": "^17.0.21",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
     "css-loader": "^6.6.0",
     "esbuild-loader": "^2.18.0",
     "eslint": "^8.10.0",

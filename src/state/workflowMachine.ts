@@ -1,12 +1,14 @@
 import { assign, createMachine } from 'xstate';
 
+type Category = 'food' | 'drink';
+
 type WorkflowStageData = {
-  data: any | null;
+  data: Category | null;
 };
 
 type SelectCategoryEvent = {
   type: 'SELECT_CATEGORY'; // event type is required
-  category: 'food' | 'drink';
+  category: Category;
 };
 
 type NextWorkflowEvent = {
