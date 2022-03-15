@@ -23,17 +23,14 @@ export const workflowMachine = createMachine<
 >(
   {
     id: 'workflow',
-    initial: 'select-category',
+    initial: 'select-product',
     context: { data: null },
     states: {
-      'select-category': {
-        meta: {
-          name: 'select-category'
-        },
+      'select-product': {
         on: {
           ADD_DATA: {
             target: 'add-data',
-            cond: 'categorySelected' // condition as per the guards section
+            cond: 'productSelected' // condition as per the guards section
           },
           SELECT_CATEGORY: {
             actions: assign({
@@ -42,16 +39,12 @@ export const workflowMachine = createMachine<
           }
         }
       },
-      'add-data': {
-        meta: {
-          name: 'add-data'
-        }
-      }
+      'add-data': {}
     }
   },
   {
     guards: {
-      categorySelected: (context) => context.data != null
+      productSelected: (context) => context.data != null
     }
   }
 );

@@ -1,12 +1,12 @@
-import React, { FormEvent, useState } from 'react';
-import { useMachine } from '@xstate/react';
+import React, { FormEvent, useContext, useState } from 'react';
 
-import { workflowMachine } from '../state/workflowMachine';
+import { WorkflowContext } from '../state/WorkflowProvider';
 
-export const SelectCategory = (): JSX.Element => {
+export const SelectProduct = (): JSX.Element => {
   const [currentCategory, setCurrentCategory] = useState('');
-  const [state, send] = useMachine(workflowMachine);
-  console.log('state', state.value);
+  const { workflowService } = useContext(WorkflowContext);
+  const { send } = workflowService;
+
   return (
     <div>
       <form
