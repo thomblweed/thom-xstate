@@ -1,15 +1,18 @@
 import React from 'react';
-import { WorkflowProvider } from './state/WorkflowProvider';
+import { Provider } from 'jotai';
+
 import { WorkflowView } from './views/WorkflowView';
 
 const App = (): JSX.Element => {
   return (
-    <WorkflowProvider>
-      <div>
-        <h1>thom app</h1>
-        <WorkflowView />
-      </div>
-    </WorkflowProvider>
+    <React.StrictMode>
+      <Provider>
+        <div>
+          <h1>thom app</h1>
+          <WorkflowView />
+        </div>
+      </Provider>
+    </React.StrictMode>
   );
 };
 

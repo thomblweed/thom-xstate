@@ -1,6 +1,6 @@
 import { assign, createMachine } from 'xstate';
 
-type Category = 'food' | 'drink';
+export type Category = 'food' | 'drink';
 
 type WorkflowStageData = {
   data: Category | null;
@@ -17,34 +17,30 @@ type NextWorkflowEvent = {
 
 type WorkflowStageEvents = SelectCategoryEvent | NextWorkflowEvent;
 
-export const workflowMachine = createMachine<
-  WorkflowStageData,
-  WorkflowStageEvents
->(
-  {
-    id: 'workflow',
-    initial: 'select-product',
-    context: { data: null },
-    states: {
-      'select-product': {
-        on: {
-          ADD_DATA: {
-            target: 'add-data',
-            cond: 'productSelected' // condition as per the guards section
-          },
-          SELECT_CATEGORY: {
-            actions: assign({
-              data: (_currentContext, { category }) => category
-            })
+export const workflowMachine = (data: WorkflowStageData) =>
+  createMachine<WorkflowStageData, WorkflowStageEvents>(
+    {
+      id: 'workflow',
+      initial: 'select-product',
+      context: data,
+      states: {
+        'select-product': {
+          on: {
+            SELECT_CATEGORY: {
+              actions: assign({
+                data: (_currentContext, { category }) => category
+              }),
+              target: 'add-data',
+              cond: 'productSelected'
+            }
           }
-        }
-      },
-      'add-data': {}
+        },
+        'add-data': {}
+      }
+    },
+    {
+      guards: {
+        productSelected: (currentContext) => currentContext.data == null
+      }
     }
-  },
-  {
-    guards: {
-      productSelected: (context) => context.data != null
-    }
-  }
-);
+  );

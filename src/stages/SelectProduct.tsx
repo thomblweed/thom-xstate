@@ -1,11 +1,13 @@
-import React, { FormEvent, useContext, useState } from 'react';
-
-import { WorkflowContext } from '../state/WorkflowProvider';
+import { useAtom } from 'jotai';
+import React, { FormEvent, useState } from 'react';
+import { Category } from '../state/workflowMachine';
+import { workflowMachineAtom } from '../state/workflowMachineAtom';
 
 export const SelectProduct = (): JSX.Element => {
-  const [currentCategory, setCurrentCategory] = useState('');
-  const { workflowService } = useContext(WorkflowContext);
-  const { send } = workflowService;
+  const [currentCategory, setCurrentCategory] = useState<Category | undefined>(
+    undefined
+  );
+  const [, send] = useAtom(workflowMachineAtom);
 
   return (
     <div>
@@ -20,7 +22,6 @@ export const SelectProduct = (): JSX.Element => {
           if (selectedCategory) {
             send({ type: 'SELECT_CATEGORY', category: selectedCategory.value });
           }
-          send({ type: 'ADD_DATA' });
         }}
       >
         <label>Select Category</label>
@@ -44,7 +45,9 @@ export const SelectProduct = (): JSX.Element => {
           />
           <label htmlFor='drink'>Drink</label>
         </div>
-        <button type='submit'>Next</button>
+        <button type='submit' disabled={!currentCategory}>
+          Next
+        </button>
       </form>
     </div>
   );
