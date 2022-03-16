@@ -3,7 +3,8 @@ import { assign, createMachine } from 'xstate';
 export type Category = 'food' | 'drink';
 
 type WorkflowStageData = {
-  data: Category | null;
+  category: Category | null;
+  // data: Category | null;
 };
 
 type SelectCategoryEvent = {
@@ -11,36 +12,43 @@ type SelectCategoryEvent = {
   category: Category;
 };
 
-type NextWorkflowEvent = {
-  type: 'ADD_DATA';
+type NextStageEvent = {
+  type: 'NEXT_STAGE';
 };
 
-type WorkflowStageEvents = SelectCategoryEvent | NextWorkflowEvent;
+type PreviousStageEvent = {
+  type: 'STAGE_BACK';
+};
+
+type WorkflowStageEvents =
+  | SelectCategoryEvent
+  | NextStageEvent
+  | PreviousStageEvent;
 
 export const workflowMachine = (data: WorkflowStageData) =>
-  createMachine<WorkflowStageData, WorkflowStageEvents>(
-    {
-      id: 'workflow',
-      initial: 'select-product',
-      context: data,
-      states: {
-        'select-product': {
-          on: {
-            SELECT_CATEGORY: {
-              actions: assign({
-                data: (_currentContext, { category }) => category
-              }),
-              target: 'add-data',
-              cond: 'productSelected'
-            }
+  createMachine<WorkflowStageData, WorkflowStageEvents>({
+    id: 'workflow',
+    initial: 'select-category',
+    context: data,
+    states: {
+      'select-category': {
+        on: {
+          SELECT_CATEGORY: {
+            actions: assign({
+              category: (_currentContext, { category }) => category
+            })
+          },
+          NEXT_STAGE: {
+            target: 'add-data'
           }
-        },
-        'add-data': {}
-      }
-    },
-    {
-      guards: {
-        productSelected: (currentContext) => currentContext.data == null
+        }
+      },
+      'add-data': {
+        on: {
+          STAGE_BACK: {
+            target: 'select-category'
+          }
+        }
       }
     }
-  );
+  });
