@@ -1,13 +1,13 @@
-import React from 'react';
-import { useAtom } from 'jotai';
+import React, { useContext } from 'react';
+import { useSelector } from '@xstate/react';
 
-import { workflowMachineAtom } from '../state/workflowMachineAtom';
 import { SelectCategory } from '../stages/SelectCategory';
 import { AddData } from '../stages/AddData';
+import { WorkflowContext } from '../state/WorkflowProvider';
 
 export const WorkflowView = (): JSX.Element => {
-  const [state] = useAtom(workflowMachineAtom);
-  const stage = state.value;
+  const { workflowService } = useContext(WorkflowContext);
+  const stage = useSelector(workflowService, (state) => state.value);
 
   return (
     <>

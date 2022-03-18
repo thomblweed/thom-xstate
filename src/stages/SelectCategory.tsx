@@ -1,11 +1,17 @@
-import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useContext } from 'react';
+import { useSelector } from '@xstate/react';
 
-import { workflowMachineAtom } from '../state/workflowMachineAtom';
+import { WorkflowContext } from '../state/WorkflowProvider';
 
 export const SelectCategory = (): JSX.Element => {
-  const [state, send] = useAtom(workflowMachineAtom);
-  const { category } = state.context;
+  const { workflowService } = useContext(WorkflowContext);
+  const { send } = workflowService;
+  const category = useSelector(
+    workflowService,
+    (state) => state.context.category
+  );
+
+  console.log('category', category);
 
   return (
     <div>
@@ -14,7 +20,6 @@ export const SelectCategory = (): JSX.Element => {
         <input
           type='radio'
           name='food'
-          value='food'
           checked={category === 'food'}
           onChange={() => send({ type: 'SELECT_CATEGORY', category: 'food' })}
         />
@@ -24,7 +29,6 @@ export const SelectCategory = (): JSX.Element => {
         <input
           type='radio'
           name='drink'
-          value='drink'
           checked={category === 'drink'}
           onChange={() => send({ type: 'SELECT_CATEGORY', category: 'drink' })}
         />

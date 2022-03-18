@@ -11,7 +11,7 @@ describe('when the App renders', () => {
 
   it('should display the title', () => {
     expect(
-      screen.getByRole('heading', { name: 'thom app' })
+      screen.getByRole('heading', { name: 'thom workflow' })
     ).toBeInTheDocument();
   });
 });

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Provider } from 'jotai';
 
+import { WorkflowProvider } from './state/WorkflowProvider';
 import { WorkflowView } from './views/WorkflowView';
 
 const App = (): JSX.Element => {
   return (
     <React.StrictMode>
-      <Provider>
+      <WorkflowProvider>
         <div>
-          <h1>thom app</h1>
+          <h1>thom workflow</h1>
           <WorkflowView />
         </div>
-      </Provider>
+      </WorkflowProvider>
     </React.StrictMode>
   );
 };

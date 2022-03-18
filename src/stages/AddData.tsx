@@ -1,10 +1,9 @@
-import React from 'react';
-import { useAtom } from 'jotai';
-
-import { workflowMachineAtom } from '../state/workflowMachineAtom';
+import React, { useContext } from 'react';
+import { WorkflowContext } from '../state/WorkflowProvider';
 
 export const AddData = () => {
-  const [, send] = useAtom(workflowMachineAtom);
+  const { workflowService } = useContext(WorkflowContext);
+  const { send } = workflowService;
 
   return (
     <div>

@@ -25,30 +25,32 @@ type WorkflowStageEvents =
   | NextStageEvent
   | PreviousStageEvent;
 
-export const workflowMachine = (data: WorkflowStageData) =>
-  createMachine<WorkflowStageData, WorkflowStageEvents>({
-    id: 'workflow',
-    initial: 'select-category',
-    context: data,
-    states: {
-      'select-category': {
-        on: {
-          SELECT_CATEGORY: {
-            actions: assign({
-              category: (_currentContext, { category }) => category
-            })
-          },
-          NEXT_STAGE: {
-            target: 'add-data'
-          }
+export const workflowMachine = createMachine<
+  WorkflowStageData,
+  WorkflowStageEvents
+>({
+  id: 'workflow',
+  initial: 'select-category',
+  context: { category: null },
+  states: {
+    'select-category': {
+      on: {
+        SELECT_CATEGORY: {
+          actions: assign({
+            category: (_context, event) => event.category
+          })
+        },
+        NEXT_STAGE: {
+          target: 'add-data'
         }
-      },
-      'add-data': {
-        on: {
-          STAGE_BACK: {
-            target: 'select-category'
-          }
+      }
+    },
+    'add-data': {
+      on: {
+        STAGE_BACK: {
+          target: 'select-category'
         }
       }
     }
-  });
+  }
+});
