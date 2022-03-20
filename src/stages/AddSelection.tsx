@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useWorkflowService } from '../hooks/useWorkflowService';
 
-export const AddData = () => {
+export const AddSelection = () => {
   const { send } = useWorkflowService();
 
   return (

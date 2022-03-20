@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { AddData, SelectCategory } from '../stages';
+import { AddSelection, SelectCategory } from '../stages';
 import { useWorkflowService } from '../hooks/useWorkflowService';
-import { WorkflowStageNames } from '../state/workflowMachine';
+import { WorkflowState } from '../state/machine/types/state/WorkflowState.type';
 
 type Stages = {
-  [key in WorkflowStageNames]: JSX.Element;
+  [key in WorkflowState]: JSX.Element;
 };
 
 const stageFactory: Stages = {
   'select-category': <SelectCategory />,
-  'add-data': <AddData />
+  'add-selection': <AddSelection />
 };
 
 export const WorkflowView = (): JSX.Element => {
   const { stage } = useWorkflowService();
 
-  return stageFactory[stage as WorkflowStageNames];
+  return stageFactory[stage as WorkflowState];
 };

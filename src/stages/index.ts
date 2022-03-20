@@ -1,2 +1,2 @@
-export { AddData } from './AddData';
+export { AddSelection } from './AddSelection';
 export { SelectCategory } from './SelectCategory';

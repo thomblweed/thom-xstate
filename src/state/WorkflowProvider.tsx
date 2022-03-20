@@ -1,12 +1,8 @@
-import React, { createContext, FC } from 'react';
+import React, { FC } from 'react';
 import { useInterpret } from '@xstate/react';
-import { InterpreterFrom } from 'xstate';
 
-import { workflowMachine } from './workflowMachine';
-
-export const WorkflowContext = createContext({
-  workflowService: {} as InterpreterFrom<typeof workflowMachine>
-});
+import { workflowMachine } from './machine/workflowMachine';
+import { WorkflowContext } from './WorkflowContext';
 
 export const WorkflowProvider: FC = ({ children }) => {
   const workflowService = useInterpret(workflowMachine);
