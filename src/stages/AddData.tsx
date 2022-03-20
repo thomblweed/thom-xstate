@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { WorkflowContext } from '../state/WorkflowProvider';
+import React from 'react';
+
+import { useWorkflowService } from '../hooks/useWorkflowService';
 
 export const AddData = () => {
-  const { workflowService } = useContext(WorkflowContext);
-  const { send } = workflowService;
+  const { send } = useWorkflowService();
 
   return (
     <div>

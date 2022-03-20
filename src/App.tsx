@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 
 import { WorkflowProvider } from './state/WorkflowProvider';
 import { WorkflowView } from './views/WorkflowView';
 
 const App = (): JSX.Element => {
   return (
-    <React.StrictMode>
-      <WorkflowProvider>
-        <div>
-          <h1>thom workflow</h1>
+    <StrictMode>
+      <div>
+        <h1>thom workflow</h1>
+        <WorkflowProvider>
           <WorkflowView />
-        </div>
-      </WorkflowProvider>
-    </React.StrictMode>
+        </WorkflowProvider>
+      </div>
+    </StrictMode>
   );
 };
 

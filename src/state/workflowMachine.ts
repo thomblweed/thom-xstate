@@ -2,20 +2,23 @@ import { assign, createMachine } from 'xstate';
 
 export type Category = 'food' | 'drink';
 
-type WorkflowStageData = {
-  category: Category | null;
-  // data: Category | null;
+export type StageCategory = 'category';
+
+export type StageData = StageCategory;
+
+export type WorkflowStageData = {
+  [key in StageCategory]: Category | null;
 };
+
+export type WorkflowStageNames = 'select-category' | 'add-data';
 
 type SelectCategoryEvent = {
   type: 'SELECT_CATEGORY'; // event type is required
   category: Category;
 };
-
 type NextStageEvent = {
   type: 'NEXT_STAGE';
 };
-
 type PreviousStageEvent = {
   type: 'STAGE_BACK';
 };
@@ -27,7 +30,8 @@ type WorkflowStageEvents =
 
 export const workflowMachine = createMachine<
   WorkflowStageData,
-  WorkflowStageEvents
+  WorkflowStageEvents,
+  { value: WorkflowStageNames; context: WorkflowStageData }
 >({
   id: 'workflow',
   initial: 'select-category',

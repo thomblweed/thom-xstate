@@ -1,17 +1,9 @@
-import React, { useContext } from 'react';
-import { useSelector } from '@xstate/react';
+import React from 'react';
 
-import { WorkflowContext } from '../state/WorkflowProvider';
+import { useWorkflowService } from '../hooks/useWorkflowService';
 
 export const SelectCategory = (): JSX.Element => {
-  const { workflowService } = useContext(WorkflowContext);
-  const { send } = workflowService;
-  const category = useSelector(
-    workflowService,
-    (state) => state.context.category
-  );
-
-  console.log('category', category);
+  const { send, contextValue: category } = useWorkflowService('category');
 
   return (
     <div>
