@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useWorkflowService } from '../hooks/useWorkflowService';
+import { Category } from '../state/machine/enum/Category.enum';
 
 export const SelectCategory = (): JSX.Element => {
   const { send, contextValue: category } = useWorkflowService('category');
@@ -11,20 +12,24 @@ export const SelectCategory = (): JSX.Element => {
       <div>
         <input
           type='radio'
-          name='food'
-          checked={category === 'food'}
-          onChange={() => send({ type: 'SELECT_CATEGORY', category: 'food' })}
+          name={Category.FOOD}
+          checked={category === Category.FOOD}
+          onChange={() =>
+            send({ type: 'SELECT_CATEGORY', category: Category.FOOD })
+          }
         />
-        <label htmlFor='food'>Food</label>
+        <label htmlFor={Category.FOOD}>Food</label>
       </div>
       <div>
         <input
           type='radio'
-          name='drink'
-          checked={category === 'drink'}
-          onChange={() => send({ type: 'SELECT_CATEGORY', category: 'drink' })}
+          name={Category.DRINK}
+          checked={category === Category.DRINK}
+          onChange={() =>
+            send({ type: 'SELECT_CATEGORY', category: Category.DRINK })
+          }
         />
-        <label htmlFor='drink'>Drink</label>
+        <label htmlFor={Category.DRINK}>Drink</label>
       </div>
       <button disabled={!category} onClick={() => send({ type: 'NEXT_STAGE' })}>
         Next

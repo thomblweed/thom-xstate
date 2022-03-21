@@ -1,4 +1,4 @@
-import { Category } from '../context/WorkflowContext.type';
+import { Category } from '../../enum/Category.enum';
 
 type SelectCategoryEvent = {
   type: 'SELECT_CATEGORY';
