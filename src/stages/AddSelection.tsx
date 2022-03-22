@@ -7,7 +7,7 @@ export const AddSelection = () => {
 
   return (
     <div>
-      <label>Add Data</label>
+      <label>Add Selection</label>
       <div>
         <button onClick={() => send({ type: 'STAGE_BACK' })}>Back</button>
       </div>

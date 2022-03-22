@@ -1,20 +1,18 @@
 import { useSelector } from '@xstate/react';
 import { useContext } from 'react';
 
-import { WorkflowContextType } from '../state/machine/types/context/WorkflowContext.type';
 import { WorkflowContext } from '../state/WorkflowContext';
 
-export function useWorkflowService(
-  contextProperty?: keyof WorkflowContextType
-) {
+export function useWorkflowService() {
   const { workflowService } = useContext(WorkflowContext);
 
   return {
     send: workflowService.send,
-    contextValue: useSelector(
+    categories: useSelector(
       workflowService,
-      (state) => contextProperty && state.context[contextProperty]
+      (state) => state.context.categories
     ),
+    category: useSelector(workflowService, (state) => state.context.category),
     stage: useSelector(workflowService, (state) => state.value)
   };
 }

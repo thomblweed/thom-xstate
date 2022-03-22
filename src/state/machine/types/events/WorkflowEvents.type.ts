@@ -1,8 +1,8 @@
-import { Category } from '../../enum/Category.enum';
+import { ResourcesType } from 'swapi-ts';
 
 type SelectCategoryEvent = {
   type: 'SELECT_CATEGORY';
-  category: Category;
+  category: ResourcesType;
 };
 type NextStageEvent = {
   type: 'NEXT_STAGE';

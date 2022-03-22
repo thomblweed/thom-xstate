@@ -1,6 +1,7 @@
-import { Category } from '../../enum/Category.enum';
+import { ResourcesType } from 'swapi-ts';
 
 export type WorkflowContextType = {
-  category: Category | null;
+  categories: ResourcesType[] | null;
+  category: ResourcesType | null;
   selection: unknown[];
 };

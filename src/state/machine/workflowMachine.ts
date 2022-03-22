@@ -1,8 +1,10 @@
 import { assign, createMachine } from 'xstate';
+import { ResourcesType } from 'swapi-ts';
 
 import { WorkflowContextType } from './types/context/WorkflowContext.type';
 import { WorkflowEvents } from './types/events/WorkflowEvents.type';
 import { WorkflowState } from './types/state/WorkflowState.type';
+import { State } from './enum/WorkflowState.enum';
 
 export const workflowMachine = createMachine<
   WorkflowContextType,
@@ -10,10 +12,14 @@ export const workflowMachine = createMachine<
   { value: WorkflowState; context: WorkflowContextType }
 >({
   id: 'workflow',
-  initial: 'select-category',
-  context: { category: null, selection: [] },
+  initial: State.SELECT_CATEGORY,
+  context: {
+    categories: Object.values(ResourcesType).map((resource) => resource),
+    category: null,
+    selection: []
+  },
   states: {
-    'select-category': {
+    [State.SELECT_CATEGORY]: {
       on: {
         SELECT_CATEGORY: {
           actions: assign({
@@ -21,14 +27,14 @@ export const workflowMachine = createMachine<
           })
         },
         NEXT_STAGE: {
-          target: 'add-selection'
+          target: State.SELECTION_RESULTS
         }
       }
     },
-    'add-selection': {
+    [State.SELECTION_RESULTS]: {
       on: {
         STAGE_BACK: {
-          target: 'select-category'
+          target: State.SELECT_CATEGORY
         }
       }
     }

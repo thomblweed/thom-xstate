@@ -10,7 +10,7 @@ type Stages = {
 
 const stageFactory: Stages = {
   'select-category': <SelectCategory />,
-  'add-selection': <AddSelection />
+  'selection-results': <AddSelection />
 };
 
 export const WorkflowView = (): JSX.Element => {
